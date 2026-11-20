@@ -34,6 +34,8 @@ jobs:
         run: python3 scripts/validate_release.py
       - name: The example manifest matches the schema
         run: python3 scripts/validate_release.py --manifest-only examples/release.example.json
+      - name: Test the checkers
+        run: python3 -m unittest discover -s tests -v
       - name: Neutrality (no workgroup values)
         # The literals come only from the NEUTRALITY_DENYLIST secret; with CI=true the check fails
         # closed when it is missing (a fork's PR gets no secrets, so it cannot go green here). PR
@@ -54,5 +56,3 @@ jobs:
             args+=(--commits "${HEAD_SHA}")
           fi
           python3 scripts/check_neutrality.py "${args[@]}"
-      - name: Test the checkers
-        run: python3 -m unittest discover -s tests -v
