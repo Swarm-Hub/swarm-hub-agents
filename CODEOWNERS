@@ -1,0 +1,8 @@
+# CODEOWNERS: this repo is public and every change to it is a release, so the owner reviews every
+# path. Release PRs arrive from release automation; the branch ruleset requires a PR on main.
+*               @luke-swarm-hub
+/.github/       @luke-swarm-hub
+/scripts/       @luke-swarm-hub
+/skills/        @luke-swarm-hub
+/release.json   @luke-swarm-hub
+/CODEOWNERS     @luke-swarm-hub
