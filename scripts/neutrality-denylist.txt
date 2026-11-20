@@ -1,0 +1,13 @@
+# Generic neutrality patterns for this public repo: one Python regex per line, matched
+# case-insensitively against every tracked file, the PR's commit messages and the PR title and body.
+# Only GENERIC shapes live here. This file is public, so it never names a workgroup, customer,
+# internal repo or project. Those literals come from the NEUTRALITY_DENYLIST CI secret
+# (newline-separated), and scripts/check_neutrality.py fails closed in CI when it is missing.
+
+# An operator binding: every workgroup value reaches a skill as a variable, never as text.
+\bSWARM_OPERATOR_[A-Z0-9_]+
+# An internal host name.
+\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.internal\b
+# A workgroup's own agents repo (`<slug>-agents`) by URL or SSH remote; this repo is the only
+# agents repo a release may name.
+github\.com[:/](?!swarm-hub/swarm-hub-agents\b)[a-z0-9_.-]+/[a-z0-9_.-]+-agents\b
