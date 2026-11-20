@@ -1,0 +1,5 @@
+# gitleaks config for this public release repo: every default rule, no allowlist. The secret-scan
+# workflow and a laptop's `gitleaks detect` both pick this file up from the repo root.
+
+[extend]
+useDefault = true

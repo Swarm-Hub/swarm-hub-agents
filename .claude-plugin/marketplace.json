@@ -1,0 +1,11 @@
+{
+  "name": "swarm-hub",
+  "owner": {
+    "name": "Swarm Hub",
+    "url": "https://github.com/Swarm-Hub/swarm-hub-agents"
+  },
+  "metadata": {
+    "description": "Swarm Hub's released plugins. main always equals the latest stable release; each release is also an immutable <plugin>@<version> tag."
+  },
+  "plugins": []
+}

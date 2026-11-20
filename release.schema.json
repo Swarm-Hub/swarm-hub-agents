@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Swarm-Hub/swarm-hub-agents/blob/main/release.schema.json",
+  "title": "swarm-hub-agents release manifest",
+  "description": "The current stable release of every plugin in this repo. Release automation writes it; the release reconciler, the catalogue and each skill's version check read it. scripts/validate_release.py enforces these same rules with the standard library.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source", "plugins"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "source": { "const": "https://github.com/Swarm-Hub/swarm-hub-agents.git" },
+    "plugins": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 64 },
+      "additionalProperties": { "$ref": "#/$defs/plugin" }
+    }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "plugin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "tag", "commit", "path", "default", "roles", "min_portal"],
+      "properties": {
+        "version": {
+          "$ref": "#/$defs/semver",
+          "description": "The released version. Equals the plugin's .claude-plugin/plugin.json version (and SKILL.md metadata.version for a single-skill plugin)."
+        },
+        "tag": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+@\\d+\\.\\d+\\.\\d+$",
+          "description": "The immutable release tag, exactly <plugin>@<version>."
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$",
+          "description": "The full SHA of the source commit the plugin folder was copied from."
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^skills/[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "The plugin folder in this repo, exactly skills/<plugin>."
+        },
+        "default": {
+          "type": "boolean",
+          "description": "True when every workspace gets the plugin by default."
+        },
+        "roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "description": "The default roles that carry the plugin."
+        },
+        "min_portal": {
+          "oneOf": [{ "$ref": "#/$defs/semver" }, { "type": "null" }],
+          "description": "The oldest portal version the plugin needs, or null."
+        }
+      }
+    }
+  }
+}

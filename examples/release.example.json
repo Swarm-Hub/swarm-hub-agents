@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "source": "https://github.com/Swarm-Hub/swarm-hub-agents.git",
+  "plugins": {
+    "example-skill": {
+      "version": "1.2.0",
+      "tag": "example-skill@1.2.0",
+      "commit": "0123456789abcdef0123456789abcdef01234567",
+      "path": "skills/example-skill",
+      "default": true,
+      "roles": ["builder", "reviewer"],
+      "min_portal": null
+    }
+  }
+}
